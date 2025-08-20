@@ -1,14 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import svgrPlugin from 'vite-plugin-svgr';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    svgrPlugin({
-      include: '**/*.svg?react',
-    }),
-  ],
+  plugins: [react(), tailwindcss(), svgrPlugin()],
   server: {
     port: 3000,
     open: true,
