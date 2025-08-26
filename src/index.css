@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
+
 @theme {
   --color-orange-2: #FFB034;
   --color-orange-1: #FADF99;
   --color-gray-1: #3030301A;
   --color-blue-3: #15215C;
+
+  --border-radius: 12px;
+
+  --spacing-30: 30px;
 }
 
 :root {
@@ -14,6 +19,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  color: var(--color-blue-3);
+}
+
+button {
+  cursor: pointer;
 }
 
 a {
