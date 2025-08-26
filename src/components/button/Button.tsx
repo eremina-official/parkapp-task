@@ -10,24 +10,30 @@ interface Props {
   text?: string;
   icon?: React.ReactElement;
   customClassName?: string;
+  selected?: boolean;
 }
 
 const variantStyles: Record<variants, string> = {
-  [OUTLINED]: '',
+  [OUTLINED]: 'rounded-(--border-radius) w-[218px] p-[10px]',
   [ROUND]: 'w-[40px] h-[40px] rounded-full',
 };
+
+const buttonSelectedStyle: string =
+  'hover:bg-(--color-blue-3) hover:text-white aria-selected:bg-(--color-blue-3) aria-selected:text-white';
 
 const Button = ({
   text,
   icon,
   customClassName,
   variant = OUTLINED,
+  selected = false,
 }: Props): React.JSX.Element => {
   const selectedVariant = variantStyles[variant];
 
   return (
     <button
-      className={`flex cursor-pointer items-center justify-center border-2 border-(--color-blue-3) bg-transparent ${selectedVariant} ${customClassName ?? ''}`}
+      aria-selected={selected}
+      className={`flex flex-[0_0_auto] cursor-pointer items-center justify-center border-2 border-(--color-blue-3) bg-transparent text-(--color-blue-3) ${selectedVariant} ${customClassName ?? ''} ${buttonSelectedStyle}`}
     >
       {icon ?? null}
       {text ?? null}
