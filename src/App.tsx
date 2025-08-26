@@ -5,6 +5,9 @@ import ParkappLogo from './assets/parkappLogo.svg?react';
 import ArrowLeft from './assets/arrowLeft.svg?react';
 import RadioSvg from './assets/radio.svg?react';
 import RadioSelectedSvg from './assets/radioSelected.svg?react';
+import request from 'graphql-request';
+import { useQuery } from '@tanstack/react-query';
+import { graphql } from './gql/gql';
 
 interface Remote {
   uid: string;
@@ -30,11 +33,34 @@ const remotes: Remote[] = [
   },
 ];
 
+const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
+  query posts {
+    posts {
+      id
+      title
+      body
+    }
+  }
+`);
+
 const App: React.FC = () => {
   const [selectedRemote, setSelectedRemote] = useState<Remote>(
     remotes[0]
   );
 
+  // `data` is fully typed
+  const { data } = useQuery({
+    queryKey: ['films'],
+    retry: false,
+    queryFn: async () =>
+      request(
+        'https://graphqlplaceholder.vercel.app/graphql',
+        allFilmsWithVariablesQueryDocument
+        // variables are type-checked too
+        // { id: 1 }
+      ),
+  });
+  console.log('data', data);
   return (
     <>
       <main className="m-auto max-w-[1000px]">

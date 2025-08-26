@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '../../components/button/Button';
 import RemoteSvg from '../../assets/remote.svg?react';
 
@@ -31,7 +30,7 @@ const RemoteControl: React.FC<Props> = ({ remoteName }) => {
       <div className="mr-4">
         <RemoteSvg className="h-[398px]" />
       </div>
-      <div className="w-[700px] flex flex-col">
+      <div className="flex w-[700px] flex-col">
         <h2 className="text-[24px] font-bold">
           {`Długa nazwa pilota ${remoteName}`}
         </h2>

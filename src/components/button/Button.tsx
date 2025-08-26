@@ -19,7 +19,7 @@ const variantStyles: Record<variants, string> = {
 };
 
 const buttonSelectedStyle: string =
-  'hover:bg-(--color-blue-3) hover:text-white aria-selected:bg-(--color-blue-3) aria-selected:text-white';
+  'hover:bg-(--color-blue-3) hover:text-white aria-selected:bg-(--color-blue-3) aria-selected:text-white hover:**:fill-white';
 
 const Button = ({
   text,

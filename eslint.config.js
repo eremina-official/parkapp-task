@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import prettierConfig from 'eslint-plugin-prettier/recommended';
+import pluginQuery from '@tanstack/eslint-plugin-query'
 import { globalIgnores } from 'eslint/config';
 
 export default tseslint.config([
@@ -15,6 +16,7 @@ export default tseslint.config([
       tseslint.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
+      pluginQuery.configs['flat/recommended'],
       prettierConfig,
     ],
     languageOptions: {
