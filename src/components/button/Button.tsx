@@ -5,7 +5,8 @@ const ROUND = 'round';
 
 type variants = typeof OUTLINED | typeof ROUND;
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: variants;
   text?: string;
   icon?: React.ReactElement;

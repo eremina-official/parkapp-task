@@ -20,7 +20,7 @@ const config = defineConfig({
         }),
       ],
   server: {
-    port: 3000,
+    port: 3002,
     open: true,
   },
   base: `/parkapp-task/`,

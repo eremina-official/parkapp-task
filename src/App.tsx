@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { graphql } from './gql/gql';
 import type { Post } from './gql/graphql';
 
+// graphql placeholder
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   query posts {
     posts {
@@ -45,7 +46,11 @@ const App: React.FC = () => {
   }, [data]);
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return (
+      <span className="flex min-h-screen items-center justify-center">
+        Loading...
+      </span>
+    );
   }
 
   if (isError) {
@@ -61,7 +66,7 @@ const App: React.FC = () => {
   return (
     <>
       <main className="m-auto max-w-[1000px]">
-        <section className="flex h-[280px] w-full rounded-b-[16px] bg-linear-to-b from-(--color-orange-2) to-(--color-orange-1) drop-shadow-[0_25px_25px_#3030301A]">
+        <section className="flex h-[250px] w-full rounded-b-[16px] bg-linear-to-b from-(--color-orange-2) to-(--color-orange-1) drop-shadow-[0_25px_25px_#3030301A]">
           <Button
             customClassName="mx-4 mt-16"
             variant="round"
@@ -70,7 +75,9 @@ const App: React.FC = () => {
           <h1 className="mx-2 mt-18 text-[32px] font-bold">
             Otwórz bramę
           </h1>
-          <ParkappLogo className="ml-auto" />
+          <span className="ml-auto">
+            <ParkappLogo height={250} />
+          </span>
         </section>
 
         <section className="pt-[70px]">
