@@ -1,5 +1,5 @@
-import Button from '../../components/button/Button';
-import RemoteSvg from '../../assets/remote.svg?react';
+import Button from '../../../components/button/Button';
+import RemoteSvg from '../../../assets/remote.svg?react';
 
 const garageEntriesList = [
   {

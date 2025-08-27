@@ -5,7 +5,7 @@ const ROUND = 'round';
 
 type variants = typeof OUTLINED | typeof ROUND;
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: variants;
   text?: string;
   icon?: React.ReactElement;
@@ -27,6 +27,7 @@ const Button = ({
   customClassName,
   variant = OUTLINED,
   selected = false,
+  ...rest
 }: Props): React.JSX.Element => {
   const selectedVariant = variantStyles[variant];
 
@@ -34,6 +35,7 @@ const Button = ({
     <button
       aria-selected={selected}
       className={`flex flex-[0_0_auto] cursor-pointer items-center justify-center border-2 border-(--color-blue-3) bg-transparent text-(--color-blue-3) ${selectedVariant} ${customClassName ?? ''} ${buttonSelectedStyle}`}
+      {...rest}
     >
       {icon ?? null}
       {text ?? null}
