@@ -1,15 +1,26 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
-import App from './App';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
+import ErrorBoundary from './components/error/ErrorBoundary';
 
 const queryClient = new QueryClient();
+
+const router = createRouter({
+  routeTree,
+});
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 function AppWithQueryClient() {
   return (
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
     </QueryClientProvider>
   );
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './components/button/Button';
-import RemoteControl from './features/remotes/Remote';
+import RemoteControl from './features/remotes/components/Remote';
 import ParkappLogo from './assets/parkappLogo.svg?react';
 import ArrowLeft from './assets/arrowLeft.svg?react';
 import RadioSvg from './assets/radio.svg?react';
@@ -8,30 +8,7 @@ import RadioSelectedSvg from './assets/radioSelected.svg?react';
 import request from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 import { graphql } from './gql/gql';
-
-interface Remote {
-  uid: string;
-  text: string;
-}
-
-const remotes: Remote[] = [
-  {
-    uid: 'A',
-    text: 'Remote long text',
-  },
-  {
-    uid: 'B',
-    text: 'Remote b',
-  },
-  {
-    uid: 'C',
-    text: 'Remote c',
-  },
-  {
-    uid: 'D',
-    text: 'Remote d',
-  },
-];
+import type { Post } from './gql/graphql';
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   query posts {
@@ -44,12 +21,12 @@ const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
 `);
 
 const App: React.FC = () => {
-  const [selectedRemote, setSelectedRemote] = useState<Remote>(
-    remotes[0]
+  const [selectedRemote, setSelectedRemote] = useState<Post | null>(
+    {} as Post
   );
 
   // `data` is fully typed
-  const { data } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ['films'],
     retry: false,
     queryFn: async () =>
@@ -60,7 +37,27 @@ const App: React.FC = () => {
         // { id: 1 }
       ),
   });
-  console.log('data', data);
+
+  useEffect(() => {
+    if (data?.posts?.length) {
+      setSelectedRemote(data.posts[0]);
+    }
+  }, [data]);
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error:{error.message}</span>;
+  }
+
+  if (data.posts?.length === 0) {
+    return <span>Currently no remotes available</span>;
+  }
+
+  const remotes = data?.posts?.slice(0, 4);
+
   return (
     <>
       <main className="m-auto max-w-[1000px]">
@@ -77,15 +74,15 @@ const App: React.FC = () => {
         </section>
 
         <section className="pt-[70px]">
-          <RemoteControl remoteName={selectedRemote.text} />
+          <RemoteControl remoteName={selectedRemote?.title} />
         </section>
 
         <section className="mt-6">
           <ul className="flex justify-center gap-5 py-(--spacing-30)">
-            {remotes.map((remote) => (
-              <li key={remote.text}>
+            {remotes?.map((remote) => (
+              <li key={remote?.id}>
                 <button onClick={() => setSelectedRemote(remote)}>
-                  {remote.uid === selectedRemote.uid ? (
+                  {remote.id === selectedRemote.id ? (
                     <RadioSelectedSvg />
                   ) : (
                     <RadioSvg />
