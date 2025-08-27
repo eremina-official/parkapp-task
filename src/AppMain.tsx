@@ -7,6 +7,7 @@ const queryClient = new QueryClient();
 
 const router = createRouter({
   routeTree,
+  basepath: 'parkapp-task',
 });
 
 declare module '@tanstack/react-router' {
