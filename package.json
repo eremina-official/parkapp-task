@@ -25,6 +25,7 @@
     "@graphql-codegen/cli": "^5.0.7",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@tanstack/eslint-plugin-query": "^5.83.1",
+    "@tanstack/router-plugin": "^1.131.28",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
